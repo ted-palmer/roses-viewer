@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.5.2",
+    "base64-js": "^1.5.1",
     "ethers": "^5.0.0",
     "next": "^12.1.6",
     "react": "^18.1.0",

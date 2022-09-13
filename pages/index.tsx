@@ -1,10 +1,7 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { ethers } from 'ethers';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useContractRead } from 'wagmi';
-import { setEnvironmentData } from 'worker_threads';
 import contractInterface from '../contract-abi.json';
 import { useIsMounted } from '../hooks/useIsMounted';
 
@@ -17,9 +14,8 @@ const Home: NextPage = () => {
   const isMounted = useIsMounted();
 
   const [id, setId] = useState(1);
-  const [roseData, setRoseData] = useState();
-
-  console.log(id)
+  const [roseData, setRoseData] = useState("");
+  const [fetchData, setFetchData] = useState("");
 
   const { data, isError, isLoading  } = useContractRead({
     ...contractConfig,
@@ -30,9 +26,15 @@ const Home: NextPage = () => {
     },
     onSuccess(data) {
       console.log("success! ", data)
-      setRoseData(data)
+      setRoseData(data.toString())
     }
   });
+
+  useEffect(() => {
+    fetch(roseData)
+    .then(response => response.json())
+    .then(data => setFetchData(data.animation_url))
+  },[id, roseData])
 
 
   return (
@@ -46,24 +48,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='relative mx-auto flex flex-col items-center'>
+      <main className='relative mx-auto flex flex-col items-center bg-[#000] h-screen'>
         <input value={id} onChange={e => setId(parseInt(e.target.value))} type="number" placeholder="Token Id" max="1024" className='absolute top-4 border p-1'/>
-        <iframe src="" frameBorder="0" allowFullScreen className='w-full h-screen'></iframe>
-
         {isMounted && roseData && 
-        <p className='max-w-full'>
-          Data: {roseData}
-          {ethers.utils.base64.decode(roseData)}
-        </p>
+          <>
+           <iframe src={fetchData} className='w-full h-screen'></iframe>
+        </>
         }   
+        <p className='absolute bottom-4 text-white px-1 bg-[#000]'>Made by <a href="https://tedpalmer.xyz" target="_blank" className='hover:text-blue-600' rel="noreferrer">Ted Palmer</a></p>
       </main>
-
-
-      {/* <footer className='flex flex-col items-center'>
-        <a href="https://tedpalmer.xyz" target="_blank" rel="noopener noreferrer">
-          Made by Ted Palmer
-        </a>
-      </footer> */}
     </div>
   );
 };
