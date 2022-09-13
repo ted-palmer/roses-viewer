@@ -56,7 +56,7 @@ const Home: NextPage = () => {
           </>
         }   
 
-        <p className='absolute bottom-4 text-white px-2 bg-[#000]'>Made by <a href="https://tedpalmer.xyz" target="_blank" className='hover:text-blue-600' rel="noreferrer">Ted Palmer</a></p>
+        <p className='absolute bottom-8 text-white px-2 bg-[#000]'>Made by <a href="https://tedpalmer.xyz" target="_blank" className='hover:text-blue-600' rel="noreferrer">Ted Palmer</a></p>
       </main>
     </div>
   );
