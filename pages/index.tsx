@@ -25,7 +25,6 @@ const Home: NextPage = () => {
       console.log('Settled', { data, error })
     },
     onSuccess(data) {
-      console.log("success! ", data)
       setRoseData(data.toString())
     }
   });
