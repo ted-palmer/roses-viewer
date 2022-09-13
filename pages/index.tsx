@@ -14,10 +14,9 @@ const Home: NextPage = () => {
   const isMounted = useIsMounted();
 
   const [id, setId] = useState(1);
-  const [roseData, setRoseData] = useState("");
   const [fetchData, setFetchData] = useState("");
 
-  const { data, isError, isLoading  } = useContractRead({
+  const contractRead = useContractRead({
     ...contractConfig,
     functionName: 'tokenURI',
     args: id,
@@ -25,16 +24,14 @@ const Home: NextPage = () => {
       console.log('Settled', { data, error })
     },
     onSuccess(data) {
-      setRoseData(data.toString())
+      fetch(data.toString())
+        .then(response => response.json())
+        .then(res => {
+          setFetchData(res.animation_url)
+          console.log(res.name)
+        })
     }
   });
-
-  useEffect(() => {
-    fetch(roseData)
-    .then(response => response.json())
-    .then(data => setFetchData(data.animation_url))
-  },[id, roseData])
-
 
   return (
     <div className=''>
@@ -52,13 +49,14 @@ const Home: NextPage = () => {
       </Head>
 
       <main className='relative mx-auto flex flex-col items-center bg-[#000] h-screen'>
-        <input value={id} onChange={e => setId(parseInt(e.target.value))} type="number" placeholder="Token Id" max="1024" maxLength={4} className='absolute top-4 border p-1'/>
-        {isMounted && roseData && 
+        <input value={id} onChange={e => setId(parseInt(e.target.value))} type="number" placeholder="Token Id" min="1" max="1024" maxLength={4} className='text-3xl rounded-lg absolute top-4 border pl-2 py-1 w-40' />
+        {isMounted && fetchData &&
           <>
-           <iframe src={fetchData} className='w-full h-screen'></iframe>
-        </>
+            <iframe src={fetchData} className='w-full h-screen'></iframe>
+          </>
         }   
-        <p className='absolute bottom-4 text-white px-1 bg-[#000]'>Made by <a href="https://tedpalmer.xyz" target="_blank" className='hover:text-blue-600' rel="noreferrer">Ted Palmer</a></p>
+
+        <p className='absolute bottom-4 text-white px-2 bg-[#000]'>Made by <a href="https://tedpalmer.xyz" target="_blank" className='hover:text-blue-600' rel="noreferrer">Ted Palmer</a></p>
       </main>
     </div>
   );
