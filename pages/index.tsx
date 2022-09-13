@@ -45,9 +45,9 @@ const Home: NextPage = () => {
         <meta name="twitter:image" content="/rose.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Roses Viewer" />
-        <meta name="twitter:description" content="" />
+        <meta name="twitter:description" content="View each rose now, even before mint." />
         <meta property="og:title" content="Roses Viewer" />
-        <meta name="description" content="" />
+        <meta name="description" content="View each rose now, even before mint." />
         <meta property="og:description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
