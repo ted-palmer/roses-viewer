@@ -41,15 +41,19 @@ const Home: NextPage = () => {
     <div className=''>
       <Head>
         <title>Roses Viewer</title>
-        <meta
-          name="description"
-          content="View roses"
-        />
+        <meta property="og:image" content="/rose.png" />
+        <meta name="twitter:image" content="/rose.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Roses Viewer" />
+        <meta name="twitter:description" content="" />
+        <meta property="og:title" content="Roses Viewer" />
+        <meta name="description" content="" />
+        <meta property="og:description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className='relative mx-auto flex flex-col items-center bg-[#000] h-screen'>
-        <input value={id} onChange={e => setId(parseInt(e.target.value))} type="number" placeholder="Token Id" max="1024" className='absolute top-4 border p-1'/>
+        <input value={id} onChange={e => setId(parseInt(e.target.value))} type="number" placeholder="Token Id" max="1024" maxLength={4} className='absolute top-4 border p-1'/>
         {isMounted && roseData && 
           <>
            <iframe src={fetchData} className='w-full h-screen'></iframe>
