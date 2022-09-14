@@ -12,26 +12,31 @@ const contractConfig = {
 
 const Home: NextPage = () => {
   const isMounted = useIsMounted();
-
   const [id, setId] = useState(1);
-  const [fetchData, setFetchData] = useState("");
+  const [animationURL, setAnimationURL] = useState("");
 
-  const contractRead = useContractRead({
+  const { data: tokenURIData } = useContractRead({
     ...contractConfig,
     functionName: 'tokenURI',
+    watch: true,
     args: id,
     onSettled(data, error) {
-      console.log('Settled', { data, error })
+      console.log('Settled', { data, error });
     },
-    onSuccess(data) {
-      fetch(data.toString())
+  });
+
+  useEffect(() => {
+    if (tokenURIData) {
+      fetch(tokenURIData.toString())
         .then(response => response.json())
-        .then(res => {
-          setFetchData(res.animation_url)
-          console.log(res.name)
+        .then(data => {
+          setAnimationURL(data.animation_url);
+          console.log(data.name);
+        }).catch((error) => {
+          console.log(error);
         })
     }
-  });
+  }, [tokenURIData]);
 
   return (
     <div className=''>
@@ -44,18 +49,17 @@ const Home: NextPage = () => {
         <meta name="twitter:description" content="View each rose now, even before mint." />
         <meta property="og:title" content="Roses Viewer" />
         <meta name="description" content="View each rose now, even before mint." />
-        <meta property="og:description" content="" />
+        <meta property="og:description" content="View each rose now, even before mint." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className='relative mx-auto flex flex-col items-center bg-[#000] h-screen'>
         <input value={id} onChange={e => setId(parseInt(e.target.value))} type="number" placeholder="Token Id" min="1" max="1024" maxLength={4} className='text-3xl rounded-lg absolute top-4 border pl-2 py-1 w-40' />
-        {isMounted && fetchData &&
+        {isMounted && animationURL && (
           <>
-            <iframe src={fetchData} className='w-full h-screen'></iframe>
+            <iframe src={animationURL} className='w-full h-screen'></iframe>
           </>
-        }   
-
+        )}
         <p className='absolute bottom-8 text-white px-2 bg-[#000]'>Made by <a href="https://tedpalmer.xyz" target="_blank" className='hover:text-blue-600' rel="noreferrer">Ted Palmer</a></p>
       </main>
     </div>
