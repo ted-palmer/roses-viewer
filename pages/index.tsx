@@ -42,8 +42,8 @@ const Home: NextPage = () => {
     <div className=''>
       <Head>
         <title>Roses Viewer</title>
-        <meta property="og:image" content="/rose.png" />
-        <meta name="twitter:image" content="/rose.png" />
+        <meta property="og:image" content="https://roses-viewer.vercel.app/rose.png" />
+        <meta name="twitter:image" content="https://roses-viewer.vercel.app/rose.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Roses Viewer" />
         <meta name="twitter:description" content="View each rose now, even before mint." />
