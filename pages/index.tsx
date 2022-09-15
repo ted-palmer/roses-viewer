@@ -42,14 +42,14 @@ const Home: NextPage = () => {
     <div className=''>
       <Head>
         <title>Roses Viewer</title>
-        <meta property="og:image" content="https://roses-viewer.vercel.app/rose.png" />
-        <meta name="twitter:image" content="https://roses-viewer.vercel.app/rose.png" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="description" content="View Dom's on-chain 3d collection of Roses." />
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:image" content="https://roses-viewer.vercel.app/social/rose.png" />
         <meta name="twitter:title" content="Roses Viewer" />
-        <meta name="twitter:description" content="View each rose now, even before mint." />
+        <meta name="twitter:description" content="View Dom's on-chain 3d collection of Roses." />
         <meta property="og:title" content="Roses Viewer" />
-        <meta name="description" content="View each rose now, even before mint." />
-        <meta property="og:description" content="View each rose now, even before mint." />
+        <meta property="og:image" content="https://roses-viewer.vercel.app/social/rose.png" />
+        <meta property="og:description" content="View Dom's on-chain 3d collection of Roses." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
